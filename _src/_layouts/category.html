@@ -1,0 +1,73 @@
+---
+layout: default
+---
+<section class="container category">
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.description }}</p>
+  
+  <div class="row my-5">
+  {% for post in paginator.posts offset:0 limit:3 %}
+    <div class="col-12 col-md-4 feature secondary">
+      <a href="{{ post.url | prepend: site.baseurl }}" style="background-image: url(/images/posts/360x250/{{ post.image }})">
+        <span class="post-content">
+          <small class="post-meta">{{ post.categories | join: ', ' }}</small>
+          <h4 class="post-title">{{ post.title }} <small>{{ post.subheading }}</small></h4>
+        </span>
+      </a>
+    </div>
+  {% endfor %}
+  </div>
+  
+  <div class="row">
+  {% for post in paginator.posts offset:3 %}
+    <div class="col-12 col-lg-6 post">
+      <div class="row">
+        <div class="col-6">
+          <a href="{{ post.url | prepend: post.baseurl }}"><img class="w-100" src="/images/posts/250x150/{{ post.image }}" alt="{{ post.title }}" /></a>
+        </div>
+        <div class="col-6 post-content">
+          <a href="{{ post.url | prepend: post.baseurl }}">
+            <small class="post-meta">{{ post.categories | join: ', ' }}</small>
+            <h4 class="post-title">{{ post.title }}</h4>
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 65 }}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  
+  {% if paginator.total_pages > 1 %}
+    <paginate class="row mb-4">
+      {% if paginator.page_trail %}
+        <div class="col-12">
+          <ul class="pagination pagination-sm justify-content-center">
+            <li class="page-item {% if page.pagination_info.curr_page == 1 %}disabled{% endif %}"><a class="page-link" href="{{ paginator.first_page_path | prepend: site.baseurl }}" title="First Page"><i class="fas fa-angle-double-left"></i></a></li>
+            <li class="page-item {% if page.pagination_info.curr_page == 1 %}disabled{% endif %}"><a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl }}" title="Previous Page"><i class="fas fa-angle-left"></i></a></li>
+            {% for trail in paginator.page_trail %}
+              <li class="page-item {% if page.url == trail.path %}active{% endif %}">
+                <a class="page-link" href="{{ trail.path | prepend: site.baseurl }}" title="{{ trail.title }}">{{ trail.num }}</a>
+              </li>
+            {% endfor %}
+            <li class="page-item {% if page.pagination_info.curr_page == page.pagination_info.total_pages %}disabled{% endif %}"><a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl }}" title="Next Page"><i class="fas fa-angle-right"></i></a></li>
+            <li class="page-item {% if page.pagination_info.curr_page == page.pagination_info.total_pages %}disabled{% endif %}"><a class="page-link" href="{{ paginator.last_page_path | prepend: site.baseurl }}" title="Last Page"><i class="fas fa-angle-double-right"></i></a></li>
+          </ul>
+        </div>
+      {% else %}
+        <div class="col-6">
+          {% if paginator.previous_page %}
+            <a href="{{ paginator.first_page_path | prepend: site.baseurl }}"><i class="fas fa-angle-double-left"></i> Most Recent Articles</a>
+            <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}"><i class="fas fa-angle-left"></i> Newer Articles</a>
+          {% endif %}
+        </div>
+        <div class="col-6 text-right">
+          {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path | prepend: site.baseurl }}">Older Articles <i class="fas fa-angle-right"></i></a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </paginate>
+  {% endif %}
+  
+  {{ content }}
+</section>
