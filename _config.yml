@@ -1,0 +1,132 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you: 
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: Emerald MTB
+email: talkto@emerald-mtb.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Riding mountain bikes, exploring mountain trails, meeting people in Ireland! We also report on Irish mountain bike races, review MTB gear and talk about fitness and nutrition for cyclists.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://emerald-mtb.com" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_user: emerald_mtb
+github_username:  jekyll
+youtubeurl: https://www.youtube.com/channel/UCEh8jX7EQnuvlStAyu8Q35w
+facebook_page: emeraldmtb
+instagram_user: emerald_mtb
+tiktok_user: emerald_mtb
+
+author:
+  name: Owen Franssen
+  image: author-owen-franssen.jpg
+  bio: >-
+    Riding bikes, exploring trails, meeting people in Ireland and abroad.
+  facebook: emeraldmtb
+  instagram: emerald_mtb
+
+# Build settings
+source: "_src"
+permalink: /:title/
+markdown: kramdown
+kramdown:
+  parse_block_html: false
+  parse_span_html: false
+# theme: minima
+plugins:
+  - jekyll-paginate-v2
+  - jekyll-feed
+  - jekyll-sitemap
+
+pagination: 
+  enabled: true
+  limit: 0
+  per_page: 9
+  permalink: '/:title/:num/'
+  sort_field: 'date'
+  sort_reverse: true
+  title: ':title - page :num | Emerald MTB'
+  trail:
+    before: 2
+    after: 2
+
+collections:
+  category:
+    output: true
+    permalink: /category/:title/
+  events:
+    output: true
+    permalink: /event/:title/
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      permalink: "/:title/"
+      comments: 1
+      no_title: false
+      image_behind_title: false
+      map: false
+      noads: false
+      seo: 
+        title: ':title'
+        description: ':excerpt'
+  -
+    scope:
+      path: "/category"
+      type: "category"
+    values:
+      layout: "category"
+      pagination: 
+        enabled: true
+      
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+
+exclude:
+- .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+- Gemfile
+- Gemfile.lock
+- node_modules/
+- package.json
+- package-lock.json
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+- images/
+- .htaccess
+- _category/
+- _site/
+- _site.dev/
+
+keep_files:
+- images
+- assets
+- css
